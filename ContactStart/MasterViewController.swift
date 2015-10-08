@@ -10,7 +10,8 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 
-  var objects = [AnyObject]()
+  var objects = [AnyObject]()  // ** replace this with an array of contact objects **
+                               // ** replace references to this later in the code  **
 
 
   override func awakeFromNib() {
@@ -22,8 +23,6 @@ class MasterViewController: UITableViewController {
     // Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
-    let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-    self.navigationItem.rightBarButtonItem = addButton
   }
 
   override func didReceiveMemoryWarning() {
@@ -31,20 +30,15 @@ class MasterViewController: UITableViewController {
     // Dispose of any resources that can be recreated.
   }
 
-  func insertNewObject(sender: AnyObject) {
-    objects.insert(NSDate(), atIndex: 0)
-    let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-    self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-  }
 
   // MARK: - Segues
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showDetail" {
-        if let indexPath = self.tableView.indexPathForSelectedRow() {
-            let object = objects[indexPath.row] as! NSDate
-        (segue.destinationViewController as! DetailViewController).detailItem = object
-        }
+      if let indexPath = self.tableView.indexPathForSelectedRow() {
+          let object = objects[indexPath.row] as! TYPE_OF_OBJECT_GOES_HERE
+      (segue.destinationViewController as! DetailViewController).detailItem = object
+      }
     }
   }
 
@@ -61,7 +55,7 @@ class MasterViewController: UITableViewController {
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
 
-    let object = objects[indexPath.row] as! NSDate
+    let object = objects[indexPath.row] as! TYPE_OF_OBJECT_GOES_HERE
     cell.textLabel!.text = object.description
     return cell
   }
